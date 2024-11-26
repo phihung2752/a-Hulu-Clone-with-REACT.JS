@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroicons/react": "^2.1.5",
-    "next": "^14.2.11",
-    "react": "^18",
-    "react-dom": "^18",
+    "@clerk/nextjs": "^4.29.3",
+    "@clerk/themes": "^2.1.48",
+    "@google/generative-ai": "^0.21.0",
+    "@heroicons/react": "^2.2.0",
+    "date-fns": "^4.1.0",
+    "next": "^15.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-flip-move": "^3.0.5",
+    "react-player": "^2.12.0",
     "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
