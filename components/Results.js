@@ -1,14 +1,30 @@
-import React from 'react'
-import Thumbnail from './Thumbnail'
-import FlipMove from 'react-flip-move';
-function Results({ results }) { // Sửa 'requets' thành 'results'
+import React from 'react';
+import Thumbnail from './Thumbnail';
+
+function Results({ results = [], error = null }) {
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-[300px] text-white">
+        <p className="text-lg">Something went wrong. Please try again later.</p>
+      </div>
+    );
+  }
+
+  if (!results || results.length === 0) {
+    return (
+      <div className="flex justify-center items-center min-h-[300px] text-white">
+        <p className="text-lg">No results found.</p>
+      </div>
+    );
+  }
+
   return (
-    <FlipMove className='px-5 my-10 sm:grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5'>
-      {results.map((result) => ( // Sử dụng 'results' thay vì 'requets'
-        <Thumbnail key={result.id} result={result} />
+    <div className="px-5 my-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {results.map((result) => (
+        result && <Thumbnail key={result.id} result={result} />
       ))}
-    </FlipMove>
-  )
+    </div>
+  );
 }
 
-export default Results
+export default Results;
