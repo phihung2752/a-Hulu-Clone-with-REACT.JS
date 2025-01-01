@@ -1,61 +1,44 @@
 import Head from 'next/head';
-import Header from '../components/Header';
-import Nav from '../components/Nav';
-import Results from '../components/Results';
-import requests from '../utils/requests';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useUser } from '@clerk/nextjs';
 
-export default function Home({ results = [] }) {
+// Dynamically import components
+const Header = dynamic(() => import('../components/Header'), {
+  ssr: true,
+  loading: () => <div className="h-20 bg-[#06202A]" />
+});
+
+const Nav = dynamic(() => import('../components/Nav'), {
+  ssr: true,
+  loading: () => <div className="h-16 bg-[#06202A]" />
+});
+
+const Results = dynamic(() => import('../components/Results'), {
+  ssr: true,
+  loading: () => <div className="min-h-[300px] bg-[#06202A]" />
+});
+
+export default function Home() {
+  const [selectedGenre, setSelectedGenre] = useState('fetchTrending');
+  const { isLoaded, isSignedIn } = useUser();
+  const router = useRouter();
+
   return (
     <div className="bg-[#06202A] min-h-screen">
       <Head>
-        <title>Hulu Clone - Stream TV and Movies</title>
+        <title>Hulu - Vietnamese Movies</title>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="description" content="Stream TV shows and movies online with Hulu Clone" />
       </Head>
 
       <Header />
+      
+      <Nav setSelectedGenre={setSelectedGenre} />
 
-      <div className="pt-24">
-        <Nav />
-      </div>
-
-      <Results results={results} />
+      <main className="relative pt-24">
+        <Results genre={selectedGenre} />
+      </main>
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  try {
-    const genre = context.query.genre;
-    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-
-    if (!apiKey) {
-      console.error('API key is missing');
-      return {
-        props: {
-          results: [],
-        },
-      };
-    }
-
-    const url = requests[genre]?.url || requests.fetchTrending.url;
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-
-    return {
-      props: {
-        results: data.results || [],
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return {
-      props: {
-        results: [],
-      },
-    };
-  }
 }

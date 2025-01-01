@@ -1,0 +1,37 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "comments": {
+      ".read": true,
+      ".write": "auth != null",
+      "$movieId": {
+        "$commentId": {
+          ".validate": "newData.hasChildren(['contentId', 'text', 'userId', 'timestamp'])",
+          "likes": {
+            ".read": true,
+            "$uid": {
+              ".write": "auth != null && auth.uid === $uid"
+            }
+          },
+          "replies": {
+            ".read": true,
+            "$replyId": {
+              ".write": "auth != null",
+              ".validate": "newData.hasChildren(['text', 'userId', 'timestamp'])"
+            }
+          }
+        }
+      }
+    },
+    "notifications": {
+      "$userId": {
+        ".read": "auth != null && auth.uid === $userId",
+        ".write": "auth != null",
+        "$notificationId": {
+          ".validate": "newData.hasChildren(['type', 'timestamp', 'read'])"
+        }
+      }
+    }
+  }
+}

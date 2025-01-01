@@ -9,21 +9,25 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.29.3",
-    "@clerk/themes": "^2.1.48",
-    "@google/generative-ai": "^0.21.0",
-    "@heroicons/react": "^2.2.0",
-    "date-fns": "^4.1.0",
-    "next": "^15.0.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "@clerk/nextjs": "^4.27.2",
+    "@heroicons/react": "^2.0.18",
+    "@supabase/supabase-js": "^2.46.1",
+    "axios": "^1.6.2",
+    "date-fns": "^2.30.0",
+    "lodash": "^4.17.21",
+    "next": "14.0.3",
+    "react": "^18",
+    "react-dom": "^18",
     "react-flip-move": "^3.0.5",
-    "react-player": "^2.12.0",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^5.3.0",
+    "react-intersection-observer": "^9.5.3",
+    "react-query": "^3.39.3",
     "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.11"
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0"
   }
 }

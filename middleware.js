@@ -1,11 +1,8 @@
- import { authMiddleware } from "@clerk/nextjs";
+import { authMiddleware } from "@clerk/nextjs";
 
-// This example protects all routes including api/trpc routes
-// Please edit this to allow other routes to be public as needed.
-// See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your middleware
 export default authMiddleware({
-  // Increase clock skew tolerance
-  clockSkewInSeconds: 300, // 5 minutes tolerance
+  // Using clockSkewInMs instead of deprecated clockSkewInSeconds
+  clockSkewInMs: 600000, // 10 minutes tolerance
   
   // Routes that can be accessed while signed out
   publicRoutes: [
@@ -29,9 +26,6 @@ export default authMiddleware({
   ],
 });
 
-// Stop Middleware running on static files and api routes
 export const config = {
-  matcher: [
-    "/((?!api/chat|_next/static|_next/image|favicon.ico).*)",
-  ],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
